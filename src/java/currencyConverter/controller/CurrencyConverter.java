@@ -19,16 +19,15 @@ public class CurrencyConverter {
     @PersistenceContext(unitName = "CurrencyConverterPU")
     private EntityManager em;
 
-   
+    public float convert(String from, String to, float amount) {
 
-    public void convert() {
         ConversionRate toRate = em.createNamedQuery("ConversionRate.findByName", ConversionRate.class)
-                .setParameter("name", this.to).getSingleResult();
+                .setParameter("name", to).getSingleResult();
         ConversionRate fromRate = em.createNamedQuery("ConversionRate.findByName", ConversionRate.class)
-                .setParameter("name", this.from).getSingleResult();
+                .setParameter("name", from).getSingleResult();
 
         float ratio = fromRate.getRate() / toRate.getRate();
 
-        result = amount + " " + fromRate.getName() + " is" + amount * ratio + " " + toRate.getClass();
+        return amount * ratio;
     }
 }
