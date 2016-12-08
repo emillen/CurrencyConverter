@@ -1,5 +1,6 @@
 package currencyConverter.controller;
 
+import currencyConverter.model.ConversionRate;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -21,6 +22,7 @@ public class CurrencyConverter {
     private String to;
     private String from;
     private float amount;
+    private String result;
 
     public void setTo(String to) {
         this.to = to;
@@ -44,5 +46,20 @@ public class CurrencyConverter {
 
     public float getAmount() {
         return amount;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void convert() {
+        ConversionRate toRate = em.createNamedQuery("ConversionRate.findByName", ConversionRate.class)
+                .setParameter("name", this.to).getSingleResult();
+        ConversionRate fromRate = em.createNamedQuery("ConversionRate.findByName", ConversionRate.class)
+                .setParameter("name", this.from).getSingleResult();
+
+        float ratio = fromRate.getRate() / toRate.getRate();
+
+        result = amount + " " + fromRate.getName() + " is" + amount * ratio + " " + toRate.getClass();
     }
 }
