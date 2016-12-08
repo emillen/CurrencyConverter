@@ -1,6 +1,7 @@
 package currencyConverter.controller;
 
 import currencyConverter.model.ConversionRate;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -29,5 +30,9 @@ public class CurrencyConverter {
         float ratio = fromRate.getRate() / toRate.getRate();
 
         return amount * ratio;
+    }
+
+    public List<ConversionRate> allRates() {
+        return em.createNamedQuery("ConversionRate.findAll", ConversionRate.class).getResultList();
     }
 }

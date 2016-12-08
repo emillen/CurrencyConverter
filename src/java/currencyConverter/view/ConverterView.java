@@ -6,7 +6,9 @@
 package currencyConverter.view;
 
 import currencyConverter.controller.CurrencyConverter;
+import currencyConverter.model.ConversionRate;
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -71,5 +73,11 @@ public class ConverterView implements Serializable {
         result = amount + " " + from + " is " + converted + " " + to;
 
         return "";
+    }
+    
+    public List<ConversionRate> getRates(){
+    
+        return cc.allRates();
+    
     }
 }
