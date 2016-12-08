@@ -21,13 +21,13 @@ public class CurrencyConverter {
     private EntityManager em;
 
     public float convert(String from, String to, float amount) {
-
+        
         ConversionRate toRate = em.createNamedQuery("ConversionRate.findByName", ConversionRate.class)
                 .setParameter("name", to).getSingleResult();
         ConversionRate fromRate = em.createNamedQuery("ConversionRate.findByName", ConversionRate.class)
                 .setParameter("name", from).getSingleResult();
 
-        float ratio = fromRate.getRate() / toRate.getRate();
+        float ratio =   toRate.getRate() / fromRate.getRate();
 
         return amount * ratio;
     }
