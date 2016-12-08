@@ -21,11 +21,11 @@ import javax.persistence.Table;
             name = "ConversionRate.findAll",
             query = "SELECT c FROM ConversionRate c"
     )
-    ,
-        @NamedQuery(
+    , 
+    @NamedQuery(
             name = "ConversionRate.findByName",
             query = "SELECT c FROM ConversionRate c WHERE c.name = :name")
-
+        
 })
 public class ConversionRate implements Serializable {
 
@@ -49,7 +49,7 @@ public class ConversionRate implements Serializable {
     public String getName() {
         return name;
     }
-
+    
     /**
      * 
      * @return the conversion rate
