@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 
 /**
@@ -18,21 +19,26 @@ import javax.inject.Named;
  * @author daseel
  */
 @Named(value = "converterView")
+@ManagedBean(name = "converterView")
 @SessionScoped
 public class ConverterView implements Serializable {
 
     @EJB
-    CurrencyConverter cc;
+    private CurrencyConverter cc;
 
     private String to;
     private String from;
-    private float amount;
+    private Float amount;
     private String result;
 
     /**
      * Creates a new instance of ConverterView
      */
     public ConverterView() {
+        to = null;
+        from = null;
+        amount = 0F;
+        result = null;
     }
 
     public void setTo(String to) {
@@ -43,10 +49,14 @@ public class ConverterView implements Serializable {
         this.from = from;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(Float amount) {
         this.amount = amount;
     }
 
+    public void setResult(){
+        // Because stupid ass jsf
+    }
+    
     public String getTo() {
         return to;
     }
@@ -55,13 +65,14 @@ public class ConverterView implements Serializable {
         return from;
     }
 
-    public float getAmount() {
+    public Float getAmount() {
         return amount;
     }
 
     public String getResult() {
         return result;
     }
+    
 
     public String convert() {
 
@@ -76,8 +87,10 @@ public class ConverterView implements Serializable {
     }
     
     public List<ConversionRate> getRates(){
-    
         return cc.allRates();
+    }
     
+    public void setRates(){
+        //asd
     }
 }
