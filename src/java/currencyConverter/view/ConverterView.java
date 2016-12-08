@@ -5,7 +5,9 @@
  */
 package currencyConverter.view;
 
+import currencyConverter.controller.CurrencyConverter;
 import java.io.Serializable;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
@@ -15,10 +17,11 @@ import javax.inject.Named;
  */
 @Named(value = "converterView")
 @SessionScoped
-public class ConverterView implements Serializable{
+public class ConverterView implements Serializable {
 
-    
-    
+    @EJB
+    CurrencyConverter cc;
+
     private String to;
     private String from;
     private float amount;
@@ -29,7 +32,7 @@ public class ConverterView implements Serializable{
      */
     public ConverterView() {
     }
-    
+
     public void setTo(String to) {
         this.to = to;
     }
@@ -57,7 +60,16 @@ public class ConverterView implements Serializable{
     public String getResult() {
         return result;
     }
-    
-    
-    
+
+    public String convert() {
+
+        if (to == null && from == null && amount == 0) {
+            return "";
+        }
+
+        float converted = cc.convert(from, to, amount);
+        result = amount + " " + from + " is " + converted + " " + to;
+
+        return "";
+    }
 }
